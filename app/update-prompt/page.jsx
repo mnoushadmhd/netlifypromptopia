@@ -1,7 +1,7 @@
 'use client'
 import Form from "@components/Form"
 import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 
@@ -9,7 +9,8 @@ const EditPrompt = () => {
     const [submitting,setSubmitting]=useState(false)
     const[post,setPost]=useState({prompt:"",tag:""})
     const router = useRouter()
-    const { id: promptId } = router.query || {};
+    const searchParams=useSearchParams();
+    const promptId=searchParams.get('id')
 
     useEffect(()=>{
         const getPrompt=async()=>{
@@ -61,4 +62,5 @@ const EditPrompt = () => {
     
   )
 }
+EditPrompt.suppressFirstRenderFlicker = true;
 export default EditPrompt
