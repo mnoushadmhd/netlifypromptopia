@@ -62,5 +62,5 @@ const EditPrompt = () => {
     
   )
 }
-
+EditPrompt.suppressFirstRenderFlicker = true;
 export default EditPrompt
