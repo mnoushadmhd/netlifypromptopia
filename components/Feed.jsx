@@ -6,32 +6,33 @@ const Feed = () => {
   const [searchText,setSearchText]=useState("")
   const[posts,setPosts]=useState([])
   const[callPosts,setCallPosts]=useState(false)
+  const [originalPosts, setOriginalPosts] = useState([]);
 
-  const handleSearchChange=(e)=>{
-    debugger
-    if(e.target.value.length == 0) setCallPosts((prev)=>!prev)
-    setSearchText(e.target.value.toLowerCase())
-    const filteredPosts=posts.filter((post)=>{
-      const{username,email}=post.creator;
-      const{prompt,tag}=post
-      if ([username, email, prompt, tag].some(field => field.toLowerCase().includes(searchText))) {
-        return post;
-      }
-    })
-    if(filteredPosts.length){
-      setPosts(filteredPosts);
+  const handleSearchChange = (e) => {
+    
+    const searchValue = e.target.value.toLowerCase();
+    if (searchValue.length === 0) {
+      setCallPosts((prev) => !prev);
     }
-    else{
-      setPosts([])
-    } 
-  }
+    setSearchText(searchValue);
+  
+    const filteredPosts = originalPosts.filter((post) => {
+      const { username, email } = post.creator;
+      const { prompt, tag } = post;
+      return [username, email, prompt, tag].some(field =>
+        field.toLowerCase().includes(searchValue)
+      );
+    });
+  
+    setPosts(filteredPosts.length ? filteredPosts : []);
+  };
   useEffect(()=>{
     const fetchposts=async()=>{
       try{
         const response= await fetch('/api/prompt')
         const data=await response.json()
         setPosts(data) 
-        console.log(data)
+        setOriginalPosts(posts);
       }
       catch(error){
         console.log("Error fetching prompt data",error)

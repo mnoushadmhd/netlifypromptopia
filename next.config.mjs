@@ -2,7 +2,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
-      appDir: true,
       serverComponentsExternalPackages: ["mongoose"],
     },
     images: {
@@ -14,8 +13,7 @@ const nextConfig = {
         topLevelAwait: true,
       }
       return config
-    },
-     output: 'export'
+    }
   }
   
   
