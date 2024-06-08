@@ -32,7 +32,7 @@ const Feed = () => {
         const response= await fetch('/api/prompt')
         const data=await response.json()
         setPosts(data) 
-        setOriginalPosts(posts);
+        setOriginalPosts(data);
       }
       catch(error){
         console.log("Error fetching prompt data",error)
