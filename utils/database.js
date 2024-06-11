@@ -17,15 +17,16 @@ export const connectToDB = async()=>{
             dbName:"share_prompt",
             useNewUrlParser:true,
             useUnifiedTopology:true,
-            serverSelectionTimeoutMS: 30000,
-            socketTimeoutMS: 30000, 
-            connectTimeoutMS: 30000, 
+            serverSelectionTimeoutMS: 60000,
+            socketTimeoutMS: 60000, 
+            connectTimeoutMS: 60000, 
         })
         isConnected=true;
         console.log("mongo DB is connected")
     }
     catch(error){
-        console.log("error",error)
+        console.error('Initial connection attempt failed, retrying...', error);
+        setTimeout(connectToDB, 5000);
     }
 }
 
