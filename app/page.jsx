@@ -8,7 +8,8 @@ const Home = () => {
             <br className="max-md:hidden"/>
             <span className="orange_gradient text-center">AI-Powered Prompts</span>
         </h1>
-        <p className="desc text-center">AI-powered prompts enhance creativity and efficiency. They intelligently assist with content creation, making tasks easier and more enjoyable!</p>
+        <p className="desc text-center">AI-powered prompts enhance creativity and efficiency. </p>
+        <p className="desc text-center">Please login to create new prompts.</p>
        
         <Feed />
     </section>
