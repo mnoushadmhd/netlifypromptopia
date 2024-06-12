@@ -68,10 +68,10 @@ const Feed = () => {
 
       </form>
 
-      <PromptCardList
+      {/* <PromptCardList
         data={posts}
         handleTagClick={()=>{}}
-      />
+      /> */}
       
     </section>
   )
