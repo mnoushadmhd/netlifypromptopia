@@ -26,31 +26,33 @@ const Feed = () => {
   
     setPosts(filteredPosts.length ? filteredPosts : []);
   };
-  useEffect(()=>{
-    const fetchposts=async()=>{
-      try{
-        const response= await fetch('/api/prompt')
-        const data=await response.json()
-        setPosts(data) 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/prompt');
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setPosts(data);
         setOriginalPosts(data);
+      } catch (error) {
+        console.log("Error fetching prompt data", error);
       }
-      catch(error){
-        console.log("Error fetching prompt data",error)
-      }
-    }
-    fetchposts();
-  },[callPosts])
+    };
+    fetchPosts();
+  }, [callPosts]);
 
   const PromptCardList=({data,handleTagClick})=>{
     return(
       <div className='mt-16 prompt_layout'>
-      {/* {data.length > 0 ?(data.map((post) => (
+      {data.length > 0 ?(data.map((post) => (
                 <PromptCard 
                     key={post._id}
                     post={post}
                     handleTagClick={handleTagClick}
                 />
-            ))):""} */}
+            ))):""}
       </div>
     )
   }
@@ -68,10 +70,10 @@ const Feed = () => {
 
       </form>
 
-      {/* <PromptCardList
+      <PromptCardList
         data={posts}
         handleTagClick={()=>{}}
-      /> */}
+      />
       
     </section>
   )
