@@ -8,23 +8,23 @@ const Feed = () => {
   const[callPosts,setCallPosts]=useState(false)
   const [originalPosts, setOriginalPosts] = useState([]);
 
-  // const handleSearchChange = (e) => {
-  //   const searchValue = e.target.value.toLowerCase();
-  //   if (searchValue.length === 0) {
-  //     setCallPosts((prev) => !prev);
-  //   }
-  //   setSearchText(searchValue);
+  const handleSearchChange = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    if (searchValue.length === 0) {
+      setCallPosts((prev) => !prev);
+    }
+    setSearchText(searchValue);
   
-  //   const filteredPosts = originalPosts.filter((post) => {
-  //     const { username, email } = post.creator;
-  //     const { prompt, tag } = post;
-  //     return [username, email, prompt, tag].some(field =>
-  //       field.toLowerCase().includes(searchValue)
-  //     );
-  //   });
+    const filteredPosts = originalPosts.filter((post) => {
+      const { username, email } = post.creator;
+      const { prompt, tag } = post;
+      return [username, email, prompt, tag].some(field =>
+        field.toLowerCase().includes(searchValue)
+      );
+    });
   
-  //   setPosts(filteredPosts.length ? filteredPosts : []);
-  // };
+    setPosts(filteredPosts.length ? filteredPosts : []);
+  };
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -62,8 +62,8 @@ const Feed = () => {
         <input 
         type="text"
         placeholder='Search for a tag or a user name' 
-        // value={searchText}
-        // onChange={handleSearchChange}
+        value={searchText}
+        onChange={handleSearchChange}
         className='search_input peer'
         />
 

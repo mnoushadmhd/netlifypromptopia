@@ -17,9 +17,9 @@ export const connectToDB = async()=>{
             dbName:"share_prompt",
             useNewUrlParser:true,
             useUnifiedTopology:true,
-            serverSelectionTimeoutMS: 60000,
-            socketTimeoutMS: 60000, 
-            connectTimeoutMS: 60000, 
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 5000, 
+            connectTimeoutMS: 5000, 
         })
         isConnected=true;
         console.log("mongo DB is connected")
@@ -28,6 +28,23 @@ export const connectToDB = async()=>{
         console.error('Initial connection attempt failed, retrying...', error);
         setTimeout(connectToDB, 5000);
     }
+    setTimeout(async () => {
+        try {
+          await mongoose.connect(MONGODB_URI, {
+            dbName: "share_prompt",
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 5000,
+            connectTimeoutMS: 5000,
+          });
+  
+          isConnected = true;
+          console.log("MongoDB is connected after retry");
+        } catch (retryError) {
+          console.error('Retry connection attempt failed:', retryError);
+        }
+      }, 5000);
 }
 
 
